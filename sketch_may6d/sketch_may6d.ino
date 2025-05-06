@@ -20,24 +20,14 @@ const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 // Create LCD object
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 
-// === Temperature Control Logic Function ===
-void temperatureControl(float temp) {
-    if (temp > 26) {
-        hot();
-    } else if (temp >= 25) {
-        normal();
-    } else {
-        cold();
-    }
-}
 
 OneWire oneWire(tempPin);       // Initialize OneWire protocol on pin tempPin.
 DallasTemperature sensors(&oneWire); // DallasTemperature library simplifies
 
 // === Setup routine runs once when you press reset ===
 void setup() {
-    //Set pin 2 as output
-    pinMode(DHTPIN, OUTPUT);
+    //Set pin 2 as Input
+    pinMode(DHTPIN, INPUT);
     // Startup Temperature Sensor
     sensors.begin();
     Serial.begin(9600);
@@ -52,13 +42,13 @@ void setup() {
 // === The loop routine runs over and over again forever ===
 void loop() {
     // Get temperature values
-    float temp; // Defining local variables
-    sensors.requestTemperatures();   // Request temperature from the sensor
-    temp = sensors.getTempCByIndex(0); // Retrieve temperature in Celsius
+    float temp = dht.readTemperature();
+    float hum = dht.readHumidity();
+
 
     // Display the temperature on the Serial Monitor
-    Serial.print("Temp: ");
-    Serial.println(temp);
+    Serial.print("Temperature: ");
+    Serial.print(temp);
 
     // Call the temperature control function
     temperatureControl(temp);
