@@ -5,8 +5,8 @@
 // Dawson College - EET
 // Date: 2025/02/02
 
-#include <OneWire.h>
-#include <DallasTemperature.h>
+#include <OneWire.h> 
+#include <DHT.h> // Incude Temperature & Humidity
 #include <LiquidCrystal.h>  // Include the LCD library
 
 // Defining Pins
@@ -53,7 +53,7 @@ void setup() {
 
     // Initialize LCD
     lcd.begin(16, 2);          // Set up the LCD's number of columns and rows
-    lcd.print("Temp Monitor"); // Display startup message
+    lcd.print("Temp & Humidity Monitor"); // Display startup message
     delay(2000);               // Show for 2 seconds
     lcd.clear();
 }
