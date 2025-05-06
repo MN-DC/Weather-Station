@@ -1,7 +1,7 @@
 // Course: Introduction to IoT
 // Description: Temperature & Humidity Monitor 
 // Version: 1.0
-// Author: Patrick Pham Luan
+// Author: Patrick Pham Luan & Micheal Nantel
 // Dawson College - EET
 // Date: 2025/02/02
 
@@ -17,17 +17,10 @@
 #define 
 
 // LCD Pins
-#define RS 12
-#define EN 11
-#define D4 5
-#define D5 4
-#define D6 3
-#define D7 2
+const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 
 // Create LCD object
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
-
-
 
 // === Temperature Control Logic Function ===
 void temperatureControl(float temp) {
