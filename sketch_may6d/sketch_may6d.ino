@@ -10,11 +10,11 @@
 #include <LiquidCrystal.h>  // Include the LCD library
 
 // Defining Pins
-#define bluePin 2
-#define greenPin 3
-#define redPin 4
-#define tempPin 5
-#define buzzerPin 9
+#define DHTPIN 2 //The pin the temp sensor is connected to
+#define DHTTYPE DHT11 //Defining the sensot type for librbary
+#define 
+#define 
+#define 
 
 // LCD Pins
 #define RS 12
@@ -45,8 +45,8 @@ DallasTemperature sensors(&oneWire); // DallasTemperature library simplifies
 
 // === Setup routine runs once when you press reset ===
 void setup() {
-  
-
+    //Set pin 2 as output
+    pinMode(DHTPIN, OUTPUT);
     // Startup Temperature Sensor
     sensors.begin();
     Serial.begin(9600);
