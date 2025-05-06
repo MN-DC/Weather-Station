@@ -1,5 +1,5 @@
 // Course: Introduction to IoT
-// Description: Temperature Monitor with Sound Warning
+// Description: Temperature & Humidity Monitor 
 // Version: 1.0
 // Author: Patrick Pham Luan
 // Dawson College - EET
@@ -27,50 +27,7 @@
 // Create LCD object
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 
-// === Hot Temperature Action Function ===
-void hot() {
-    digitalWrite(redPin, HIGH);  // Red LED on
-    digitalWrite(greenPin, LOW); // Green LED off
-    digitalWrite(bluePin, LOW);  // Blue LED off
-    digitalWrite(buzzerPin, HIGH); // Buzzer on
 
-    // Display on LCD
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Temp: High!");
-    lcd.setCursor(0, 1);
-    lcd.print("Warning!");
-}
-
-// === Normal Temperature Action Function ===
-void normal() {
-    digitalWrite(redPin, HIGH);   // Red LED on
-    digitalWrite(greenPin, HIGH); // Green LED on
-    digitalWrite(bluePin, LOW);   // Blue LED off
-    digitalWrite(buzzerPin, LOW); // Buzzer off
-
-    // Display on LCD
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Temp: Normal");
-    lcd.setCursor(0, 1);
-    lcd.print("All good!");
-}
-
-// === Cold Temperature Action Function ===
-void cold() {
-    digitalWrite(redPin, LOW);    // Red LED off
-    digitalWrite(greenPin, LOW);  // Green LED off
-    digitalWrite(bluePin, HIGH);  // Blue LED on
-    digitalWrite(buzzerPin, LOW); // Buzzer off
-
-    // Display on LCD
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Temp: Cold!");
-    lcd.setCursor(0, 1);
-    lcd.print("Check heating.");
-}
 
 // === Temperature Control Logic Function ===
 void temperatureControl(float temp) {
@@ -88,12 +45,7 @@ DallasTemperature sensors(&oneWire); // DallasTemperature library simplifies
 
 // === Setup routine runs once when you press reset ===
 void setup() {
-    // Defining the pin modes
-    pinMode(bluePin, OUTPUT);  // Configure Blue pin of RGB
-    pinMode(greenPin, OUTPUT); // Configure Green pin of RGB
-    pinMode(redPin, OUTPUT);   // Configure Red pin of RGB
-    pinMode(buzzerPin, OUTPUT); // Configure Buzzer pin
-    pinMode(tempPin, INPUT);    // Configure Temperature Sensor pin
+  
 
     // Startup Temperature Sensor
     sensors.begin();
