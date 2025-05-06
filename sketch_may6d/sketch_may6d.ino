@@ -12,9 +12,7 @@
 // Defining Pins
 #define DHTPIN 2 //The pin the temp sensor is connected to
 #define DHTTYPE DHT11 //Defining the sensot type for librbary
-#define 
-#define 
-#define 
+#define
 
 // LCD Pins
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
