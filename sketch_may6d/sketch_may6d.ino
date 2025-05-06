@@ -1,58 +1,36 @@
-// Course: Introduction to IoT
-// Description: Temperature & Humidity Monitor 
-// Version: 1.0
-// Author: Patrick Pham Luan & Micheal Nantel
-// Dawson College - EET
-// Date: 2025/02/02
+#include <LiquidCrystal.h>  // Include the LiquidCrystal library for the LCD
+#include <DHT.h>
 
-#include <OneWire.h> 
-#include <DHT.h> // Incude Temperature & Humidity
-#include <LiquidCrystal.h>  // Include the LCD library
-
-// Defining Pins
-#define DHTPIN 2 //The pin the temp sensor is connected to
-#define DHTTYPE DHT11 //Defining the sensot type for librbary
-#define
-
-// LCD Pins
+// Define the LCD pin connections: RS, Enable, Data4, Data5, Data6, Data7
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
+#define DHTPIN 2      // DHT11 data pin connected to Pin 2
+#define DHTTYPE DHT11 // Define sensor type
 
-// Create LCD object
-LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 
-
-OneWire oneWire(tempPin);       // Initialize OneWire protocol on pin tempPin.
-DallasTemperature sensors(&oneWire); // DallasTemperature library simplifies
-
-// === Setup routine runs once when you press reset ===
+DHT dht(DHTPIN, DHTTYPE); // Create a DHT sensor object
 void setup() {
-    //Set pin 2 as Input
-    pinMode(DHTPIN, INPUT);
-    // Startup Temperature Sensor
-    sensors.begin();
     Serial.begin(9600);
-
-    // Initialize LCD
-    lcd.begin(16, 2);          // Set up the LCD's number of columns and rows
-    lcd.print("Temp & Humidity Monitor"); // Display startup message
-    delay(2000);               // Show for 2 seconds
-    lcd.clear();
+    lcd.begin(16, 2);    
+    dht.begin();          // Initialize DHT11 sensor
 }
-
-// === The loop routine runs over and over again forever ===
 void loop() {
-    // Get temperature values
     float temp = dht.readTemperature();
     float hum = dht.readHumidity();
-
-
-    // Display the temperature on the Serial Monitor
+    lcd.clear();
     Serial.print("Temperature: ");
     Serial.print(temp);
+    Serial.print(" °C | Humidity: ");
+    Serial.print(hum);
+    Serial.println(" %");
 
-    // Call the temperature control function
-    temperatureControl(temp);
+    lcd.print("Temp:");
+    lcd.print(temp);
+    lcd.print(" C ");
+    lcd.setCursor(0, 1);  
+    lcd.print(" Hum:");
+    lcd.print(hum);
+    lcd.print(" %");
 
-    // Time delay of 1 second before taking the next reading
-    delay(1000);
+    delay(500); // Wait 1 seconds before next reading
 }
