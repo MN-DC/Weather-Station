@@ -47,57 +47,80 @@ void loop() {
 
   delay(1000);  // Wait 1 seconds before next reading
 }
-void TemperatureControl(float temperature, float humidity) {
-  lcd.clear();
-  if (temperature >= 18 && temperature <= 25 && humidity >= 40 && humidity <= 60) {
-    Serial.println("Comfortable Environment.");
-    lcd.print("Comfy Temp");
-    lcd.setCursor(0, 1);
-    lcd.print("Comfy Hum.");
-   } else if (temperature > 25 && humidity < 30) {
-    Serial.println("Warm & Dry ");
+//Instructs the conditions what to do
+void Comfy() { 
+  Serial.println("Comfortable Environment."); //prints in serial monitor 
+  lcd.print("Comfy Temp"); //prints temperature feel on first row of LCD display
+  lcd.setCursor(0, 1); //switches to second row of LCD display
+  lcd.print("Comfy Hum."); //prints humidity feel on second row of display
+}
+void Warm_Dry(){
+  Serial.println("Warm & Dry ");
     lcd.print("Warm");
     lcd.setCursor(0, 1);
     lcd.print("Dry");
-   }  else if (temperature > 25 && humidity >= 30 && humidity <=70) {
-    Serial.println("Warm & Comfy");
+}
+void Warm_Comfy(){
+  Serial.println("Warm & Comfy");
     lcd.print("Warm");
     lcd.setCursor(0, 1);
     lcd.print("Comfy");
-   } else if (temperature > 25 && humidity > 70) {
-    Serial.println("Hot & Humid.");
+}
+void Hot_Humid(){
+  Serial.println("Hot & Humid.");
     lcd.print("Hot");
     lcd.setCursor(0, 1);
     lcd.print("Humid");
-   } else if (temperature < 18 && humidity < 30) {
-    Serial.println("Cold & Dry.");
+}
+void Cold_Dry(){
+  Serial.println("Cold & Dry.");
     lcd.print("Cold.");
     lcd.setCursor(0, 1);
     lcd.print("Dry.");
-   } else if (temperature < 18 && humidity >= 30 && humidity <= 70) {
-    Serial.println("Cold & Humid.");
-    lcd.print("Cold.");
-    lcd.setCursor(0, 1);
-    lcd.print("comfy");
-   } else if (temperature < 18 && humidity > 70) {
-    Serial.println("Cold & Humid.");
+}
+void Cold_Humid(){
+  Serial.println("Cold & Humid.");
     lcd.print("Cold.");
     lcd.setCursor(0, 1);
     lcd.print("Humid");
-   } else if (temperature >= 18 && temperature <= 25 && humidity < 40) {
-    Serial.println("Comfy but dry");
+}
+void Comfy_dry(){
+  Serial.println("Comfy but dry");
     lcd.print("Comfy Temp");
     lcd.setCursor(0, 1);
     lcd.print("Dry Humidity");
-  } else if (temperature >= 18 && temperature <= 25 && humidity > 60) {
-    Serial.println("Comfy but Humid");
+}
+void Comfy_Humid(){
+  Serial.println("Comfy but Humid");
     lcd.print("Comfy Temp");
     lcd.setCursor(0, 1);
     lcd.print("Humid");
-  } else if (humidity > 80 || isnan(temperature) || isnan(humidity)) {
-    Serial.println("Extreme Humidity Detected or Sensor Error.");
+}
+void Error(){ 
+  Serial.println("Extreme Humidity Detected or Sensor Error.");
     lcd.print("Sense Error.");
     lcd.setCursor(0, 1);
-    lcd.print("Environment");
+    lcd.print(" OR Extreme Humidity");
+}
+void TemperatureControl(float temperature, float humidity) { //defines conditions depending on the levels of temperature & humidity
+  lcd.clear(); 
+  if (temperature >= 18 && temperature <= 25 && humidity >= 40 && humidity <= 60) {
+    Comfy();
+  } else if (temperature > 25 && humidity < 30) {
+    Warm_Dry();
+  } else if (temperature > 25 && humidity >= 30 && humidity <= 70) {
+    Warm_Comfy();
+  } else if (temperature > 25 && humidity > 70) {
+    Hot_Humid();
+  } else if (temperature < 18 && humidity < 30) {
+    Cold_Dry();
+  } else if (temperature < 18 && humidity > 70) {
+    Cold_Humid();
+  } else if (temperature >= 18 && temperature <= 25 && humidity < 40) {
+    Comfy_dry();
+  } else if (temperature >= 18 && temperature <= 25 && humidity > 60) {
+    Comfy_Humid();
+  } else if (humidity > 90 || isnan(temperature) || isnan(humidity)) {
+    Error();
   }
 }
