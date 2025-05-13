@@ -129,28 +129,14 @@ void Error() {
   lcd.print(" OR Extreme Humidity");
 }
 
-// Function to decide comfort message based on temperature and humidity levels
-void TemperatureControl(float temperature, float humidity) {
-  lcd.clear();  // Clear LCD before printing new condition
 
-  // Check different ranges of temp and humidity, and call appropriate message function
-  if (temperature >= 18 && temperature <= 25 && humidity >= 40 && humidity <= 60) {
-    Comfy();
-  } else if (temperature > 25 && humidity < 30) {
-    Warm_Dry();
-  } else if (temperature > 25 && humidity >= 30 && humidity <= 70) {
-    Warm_Comfy();
-  } else if (temperature > 25 && humidity > 70) {
-    Hot_Humid();
-  } else if (temperature < 18 && humidity < 30) {
-    Cold_Dry();
-  } else if (temperature < 18 && humidity > 70 && humidity < 80) {
-    Cold_Humid();
-  } else if (temperature >= 18 && temperature <= 25 && humidity < 40) {
-    Comfy_dry();
-  } else if (temperature >= 18 && temperature <= 25 && humidity > 60) {
-    Comfy_Humid();
-  } else if (humidity > 90 || isnan(temperature) || isnan(humidity)) {
-    Error();
+// ----------Checks Temperature---------
+// Conditions look at temperature to identify whether it is hot, comfy or cold
+void TempreatureControl(float temperature) {
+  if (temperature > 25) {
+    Hot_Condition();
+  } else if (temperature <= 25 && temperature >=18) {
+    Comfy_Condition();
+  } else if (temperature < 18) {
+    Cold_Condition();
   }
-}
