@@ -1,9 +1,9 @@
 // Course: Introduction to IoT
 // Description: Temperature & Humidity Display
 // Version: 1.0
-// Author: Patrick Pham Luan & Micheal Nantel
+// Author: Patrick Pham Luan & Micheal Nantel & Brandon Bucciero
 // Dawson College - EET
-// Date: 2025/05/06
+// Date: 2025/05/13
 
 #include <LiquidCrystal.h>  // Include the library to interface with an LCD display
 #include <DHT.h>            // Include the library to use the DHT temperature and humidity sensor
@@ -42,7 +42,9 @@ void loop() {
   lcd.clear();          // Clear the LCD screen
   lcd.print("Temp:");   // Print "Temp:" on the first line
   lcd.print(temp);      // Print the temperature value
-  lcd.print(" C ");     // Add units
+  lcd.print(" ");       // Add units
+  lcd.print((char)223); // Degree symbol
+  lcd.print("C");       // Celsius
   lcd.setCursor(0, 1);  // Move to the second line
   lcd.print(" Hum:");   // Print "Hum:" for humidity
   lcd.print(hum);       // Print the humidity value
@@ -50,7 +52,8 @@ void loop() {
 
   delay(1000);  // Wait 1 second
 
-  TemperatureControl(temp, hum);  // Call a function to analyze and display comfort conditions
+  lcd.clear();                    // Clear the LCD screen
+  temperatureControl(temp, hum);  // Call a function to analyze and display comfort conditions
 
   delay(1000);  // Wait another second before looping again
 }
@@ -132,11 +135,36 @@ void Error() {
 
 // ----------Checks Temperature---------
 // Conditions look at temperature to identify whether it is hot, comfy or cold
-void TempreatureControl(float temperature) {
+void tempreatureControl(float temperature, float humidity) {
   if (temperature > 25) {
-    Hot_Condition();
-  } else if (temperature <= 25 && temperature >=18) {
-    Comfy_Condition();
+    hot(humidity);
   } else if (temperature < 18) {
-    Cold_Condition();
+    cold(humidity);
+  } else {
+    comfy(humidity);
   }
+}
+
+// LCD controls for hot,
+void hot(float humidity) {
+  Serial.println("Hot");
+  lcd.print("Hot.");
+  humidityControl(humidity);
+}
+// cold,
+void cold(float humidity) {
+  Serial.println("Hot");
+  lcd.print("Cold.");
+  humidityControl(humidity);
+}
+// comfy.
+void comfy(float humidity) {
+  Serial.println("Hot");
+  lcd.print("Comfy.");
+  humidityControl(humidity);
+}
+
+// Humidity Controls
+void humidityControl(float humidity) {
+  if (humidity < )
+}
