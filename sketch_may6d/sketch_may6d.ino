@@ -1,9 +1,9 @@
-// Course: Introduction to IoT                          
-// Description: Temperature & Humidity Display          
-// Version: 1.0                                         
-// Author: Patrick Pham Luan & Micheal Nantel           
-// Dawson College - EET                                 
-// Date: 2025/05/06                                     
+// Course: Introduction to IoT
+// Description: Temperature & Humidity Display
+// Version: 1.0
+// Author: Patrick Pham Luan & Micheal Nantel
+// Dawson College - EET
+// Date: 2025/05/06
 
 #include <LiquidCrystal.h>  // Include the library to interface with an LCD display
 #include <DHT.h>            // Include the library to use the DHT temperature and humidity sensor
