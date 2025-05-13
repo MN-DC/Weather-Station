@@ -144,7 +144,7 @@ void TemperatureControl(float temperature, float humidity) {
     Hot_Humid();
   } else if (temperature < 18 && humidity < 30) {
     Cold_Dry();
-  } else if (temperature < 18 && humidity > 70 && humidity > 80) {
+  } else if (temperature < 18 && humidity > 70 && humidity < 80) {
     Cold_Humid();
   } else if (temperature >= 18 && temperature <= 25 && humidity < 40) {
     Comfy_dry();
